@@ -15,4 +15,4 @@ open class Notes(
         var description: String = "",
         var createDate: Date? = null,
         var updateDate: Date? = null
-) : RealmObject()
+): RealmObject()

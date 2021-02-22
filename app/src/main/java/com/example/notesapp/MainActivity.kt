@@ -17,7 +17,7 @@ import com.example.notesapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    private val TAG = "MainActivity"
+    private val TAG = "lifecycle"
 
     private lateinit var mBinding: ActivityMainBinding
     private lateinit var navController: NavController
@@ -73,5 +73,4 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
         Log.d(TAG, "MainActivity onDestroy: call")
     }
-
 }

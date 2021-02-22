@@ -11,14 +11,18 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import com.example.notesapp.databinding.FragmentNoteListBinding
+import kotlinx.android.synthetic.main.fragment_note_list.*
 
 
 class NoteListFragment: Fragment() {
 
-    private val TAG = "MainActivity"
+    private val TAG = "lifecycle"
 
     private lateinit var binding: FragmentNoteListBinding
     private val activityViewModel: NotesViewModel by viewModels()
+
+    private lateinit var normalListFragment: NormalNoteListFragment
+    private lateinit var workNoteListFragment: WorkNoteListFragment
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -38,12 +42,25 @@ class NoteListFragment: Fragment() {
         binding = DataBindingUtil.inflate<FragmentNoteListBinding>(inflater, R.layout.fragment_note_list, container,false)
         binding.noteViewModel = activityViewModel
 
+        normalListFragment = NormalNoteListFragment()
+        workNoteListFragment = WorkNoteListFragment()
+
         Log.d(TAG, "NoteListFragment onCreateView: call")
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // fragment view 생성이 된후 viewPager setting
+        val pagerAdapter = NoteListPagerAdapter(childFragmentManager)
+        pagerAdapter.addItem(normalListFragment)
+        pagerAdapter.addItem(workNoteListFragment)
+        binding.mViewPager.adapter = pagerAdapter
+
+        //TapLayout 설정.
+        binding.mTabLayout.setupWithViewPager(mViewPager)
+
         Log.d(TAG, "NoteListFragment onViewCreated: call")
     }
 
