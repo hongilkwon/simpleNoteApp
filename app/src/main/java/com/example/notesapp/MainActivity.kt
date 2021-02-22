@@ -17,15 +17,15 @@ import com.example.notesapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    private val TAG = "lifecycle"
+    companion object{
+        private const val TAG = "lifecycle"
+        private const val VTAG = "viewModel"
+    }
 
     private lateinit var mBinding: ActivityMainBinding
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
     private val mViewModel: NotesViewModel by viewModels()
-
-    lateinit var test: String
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +38,7 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         Log.d(TAG, "MainActivity onCreate: call")
+        Log.d(VTAG, "MainActivity ${mViewModel.getRef()}")
     }
 
     override fun onSupportNavigateUp(): Boolean {

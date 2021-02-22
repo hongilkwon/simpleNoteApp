@@ -8,13 +8,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import com.example.notesapp.databinding.FragmentWorkNoteListBinding
 
 
 class WorkNoteListFragment : Fragment() {
 
-    private val TAG = "lifecycle"
+    companion object {
+        const val TAB_LABEL = "작업"
+        private const val TAG = "lifecycle"
+        private const val VTAG  = "viewModel"
+    }
+
+
     private lateinit var binding: FragmentWorkNoteListBinding
+    private val activityViewModel: NotesViewModel by activityViewModels()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -30,7 +39,10 @@ class WorkNoteListFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_work_note_list, container, false)
+        binding.noteViewModel = activityViewModel
+
         Log.d(TAG, "WorkNoteListFragment onCreateView: call")
+        Log.d(VTAG, "WorkNoteListFragment ${activityViewModel.getRef()}")
         return binding.root
     }
 
@@ -78,5 +90,4 @@ class WorkNoteListFragment : Fragment() {
         super.onDetach()
         Log.d(TAG, "WorkNoteListFragment onDetach: call ")
     }
-
 }
